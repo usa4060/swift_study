@@ -14,7 +14,7 @@ class Person{
     var name: String = "yongin"
     var age: Int = 25
 }
-
+ 
 let yongin: Person = Person()
 
 print(yongin)
