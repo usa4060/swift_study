@@ -17,7 +17,7 @@ someFloat = 3
 
 var someDouble : Double = 3.14
 // someDouble = someFloat // 컴파일 에러
-
+ 
 var someCharacter: Character = "🇰🇷"
 someCharacter = "😄"
 someCharacter = "가"
