@@ -356,6 +356,7 @@ swift의 기본 데이터 타입
  함수
  -
 * 함수선언의 기본 형태
+
     ```swift
     func 함수이름(매개변수1이름: 매개변수1타입, 매개변수2이름: 매개변수2타입 ...) -> 반환타입 {
     /* 함수 구현부 */
@@ -370,7 +371,9 @@ swift의 기본 데이터 타입
     return a + b
     }
     ```
+
 * 반환 값이 없는 함수  
+
     ```swift
     func 함수이름(매개변수1이름: 매개변수1타입, 매개변수2이름: 매개변수2타입 ...) -> Void {
     /* 함수 구현부 */
@@ -387,7 +390,9 @@ swift의 기본 데이터 타입
     print(name)
     }
     ```
+
 * 매개변수가 없는 함수    
+
     ```swift
     func 함수이름() -> 반환타입 {
     /* 함수 구현부 */
@@ -399,7 +404,9 @@ swift의 기본 데이터 타입
     return Int.max
     }
     ```
+
 * 매개변수와 반환값이 없는 함수    
+
     ```swift
     func 함수이름() -> Void {
     /* 함수 구현부 */
@@ -420,7 +427,9 @@ swift의 기본 데이터 타입
 
     func bye() { print("bye") }
     ```
+
 * 함수의 호출    
+
     ```swift
     sum(a: 3, b: 5) // 8
 
@@ -490,7 +499,7 @@ swift의 기본 데이터 타입
         return "Hello \(friends)! I'm \(me)!"
         }
         print(sayHelloToFriends(me: "yongin", friends: "hana", "eric", "wing"))
-        // Hello ["hana", "eric", "wing"]! I'm yagom!
+        // Hello ["hana", "eric", "wing"]! I'm yongin!
 
         print(sayHelloToFriends(me: "yongin"))
         // Hello []! I'm yongin!
@@ -508,10 +517,10 @@ swift의 기본 데이터 타입
 
         ```swift
         var someFunction: (String, String) -> Void = greeting(to:from:)
-        someFunction("eric", "yagom") // Hello eric! I'm yagom
+        someFunction("eric", "yongin") // Hello eric! I'm yongin
 
         someFunction = greeting(friend:me:)
-        someFunction("eric", "yagom") // Hello eric! I'm yagom
+        someFunction("eric", "yongin") // Hello eric! I'm yongin
 
 
         // 타입이 다른 함수는 할당할 수 없습니다 - 컴파일 오류 발생
