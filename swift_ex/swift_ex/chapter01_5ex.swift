@@ -13,7 +13,7 @@ integers.removeLast()   // 100 remove
 integers.removeAll()    // All remove
 
 print(integers.count)          // 0
-
+ 
 // integers[0] => 컴파일 오류 발생 (배열이 비어있는 곳은 접근 불가)
 
 // var doubles:Array<Double> = Array<Double>() 와 같은 표현이다.
