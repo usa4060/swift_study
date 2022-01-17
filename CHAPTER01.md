@@ -538,3 +538,265 @@ swift의 기본 데이터 타입
         runAnother(function: someFunction)
         ````
 ---
+ 조건문
+ -
+ * if - else구문
+    - if만 단독사용 가능하고, else & else if 와 조합 가능하다.
+    - if뒤의 조건값에는 bool형만 위치 가능하다.
+    - 조건을 감싸는 소괄호는 선택사항
+
+        ```swift
+        let someInteger = 100
+
+        if someInteger < 100 {
+        print("100 미만")
+        } else if someInteger > 100 {
+         print("100 초과")
+        } else {
+          print("100")
+        } // 100
+
+        // 스위프트의 조건에는 항상 Bool 타입이 들어와야 합니다.
+        // someInteger는 Bool 타입이 아닌 Int 타입이기 때문에
+        // 컴파일 오류가 발생합니다.
+        // if someInteger { }
+        ````
+
+* switch구문
+    - 스위프트의 switch구문은 다른 언어에 비해 상당히 강력하다
+        - 기본적으로 사용하던 정수 뿐만 아니라, 대부분의 스위프트 기본 타입을 지원
+    - 각 case내부에는 실행 가능한 코드가 위치 해야 함
+    - default값은 반드시 작성해야 함
+    - break를 명시 하지 않아도 자동으로 break가 가능함.
+    - ' fallthrough ' 키워드를 사용하여 break무시 가능.
+    - 쉼표 (,)를 사용하여 하나의 case에 여러가지 패턴을 부여 가능함.
+
+        ```swift
+        // 범위 연산자를 활용하면 더욱 쉽고 유용합니다
+        switch someInteger {
+        case 0:
+            print("zero")
+        case 1..<100:
+            print("1~99")
+        case 100:
+            print("100")
+        case 101...Int.max:
+            print("over 100")
+        default:
+            print("unknown")
+        } // 100
+
+        // 정수 외의 대부분의 기본 타입을 사용할 수 있습니다
+        switch "yongin" {
+        case "jake":
+            print("jake")
+        case "mina":
+            print("mina")
+        case "yongin":
+            print("yongin!!")
+        default:
+            print("unknown")
+        } // yongin!!
+        ````
+
+---
+ 반복문
+ * for ~ in 구문
+    - 기존 언어의 for - each구문과 비슷하다.
+    - Dictionary의 경우, 이터레이션 아이템이 튜플로 들어온다.
+        
+        ```swift
+            var integers = [1, 2, 3]
+        let people = ["yagom": 10, "eric": 15, "mike": 12]
+
+        for integer in integers {
+            print(integer)
+        }
+
+        // Dictionary의 item은 key와 value로 구성된 튜플 타입입니다
+        for (name, age) in people {
+            print("\(name): \(age)")
+        }
+        ````
+* while구문
+
+     ```swift
+         while integers.count > 1 {
+            integers.removeLast()   
+        }
+    ````
+
+* repeat ~ while 구문
+    - 기존 언어의 do - while구문과 유사함
+
+        ```swift
+             repeat {
+                integers.removeLast()
+            } while integers.count > 0
+        ````
+
+---
+ 옵셔널
+ -
+ * 옵셔널이란?
+    - 값이 있을 수도 있고, 없을 수도 있음을 표현함
+    - nil이 할당될 수 있는지 없는지 표현
+        
+        ```swift
+        // someOptionalParm에 nil이 할당 될 수 있다.
+        func someFunction(someOptionalParam: Int?) {
+            // ....
+        }
+
+        /// someOptionalParm에 nil이 할당 될 수 없다.
+        func someFunction(someOptionalParam: Int) {
+            // ....
+        }
+
+        someFunction(someOptionalParam: nil)
+        // someFunction(someParam: nil) 
+
+        ````
+
+ * 옵셔널을 쓰는 이유는?
+    1. 명시적 표현
+        - nil의 가능성을 코드로만 표현 가능
+        - 문서/주석 작성 시간을 단축
+    2. 안전한 사용
+        - 전달 받은 값이 옵셔널이 아니라면, nil은 전혀 고려하지 않아도 됨
+        - 예외 상황을 최소화 해주는 코딩방법
+        - 효율적인 코딩이 가능함
+    
+ * 옵셔널 문법과 선언
+    - 옵셔널 문법 = enum + generics
+        ```swift
+        enum Optional<Wrapped>: ExpressibleByNiliteral {
+            case none
+            case some(Wrapped)
+        }
+
+        let optionalValue: Optional<Int> = nil
+        let optionalValue: Int? =nil
+        ````
+
+    - 옵셔널 표현
+        1. 느낌표(!)를 이용한 암시적 추출 옵셔널
+
+            ```swift
+            // Implicitly Unwrapped Optional
+            var implicitlyUnwrappedOptionalValue: Int! = 100
+
+            switch implicitlyUnwrappedOptionalValue {
+            case .none:
+                print("This Optional variable is nil")
+            case .some(let value):
+                print("Value is \(value)")
+            }
+
+            // 기존 변수처럼 사용 가능
+            implicitlyUnwrappedOptionalValue = implicitlyUnwrappedOptionalValue + 1
+
+            // nil 할당 가능
+            implicitlyUnwrappedOptionalValue = nil
+
+            // 잘못된 접근으로 인한 런타임 오류 발생
+            //implicitlyUnwrappedOptionalValue = implicitlyUnwrappedOptionalValue + 1
+            ````
+
+        2. 물음표(?)를 이용한 옵셔널
+
+            ```swift
+            // Optional
+            var optionalValue: Int? = 100
+
+            switch optionalValue {
+            case .none:
+                print("This Optional variable is nil")
+            case .some(let value):
+                print("Value is \(value)")
+            }
+
+            // nil 할당 가능
+            optionalValue = nil
+
+            // 기존 변수처럼 사용불가 - 옵셔널과 일반 값은 다른 타입이므로 연산불가
+            //optionalValue = optionalValue + 1
+            ```
+---
+ 옵셔널 추출
+-
+ * 옵셔널 추출이란?
+    
+    -> 옵셔널에 들어있는 값을 사용하기 위해 꺼내오는 것
+
+ * 옵셔널 방식
+    1. 옵셔널 바인딩 
+        - 1.. nil 체크
+        - 2.. 옵셔널 안에 값이 있는지 확인하고, 값이 있으면 값을 꺼내온다.
+        - 3.. if-let방식 사용
+
+            ```swift
+            func printName(_ name: String) {
+            print(name)
+            }
+
+            var myName: String? = nil
+
+            //printName(myName)
+            // 전달되는 값의 타입이 다르기 때문에 컴파일 오류발생
+
+            if let name: String = myName {
+                printName(name)
+            } else {
+                print("myName == nil")
+            }
+
+
+            var yourName: String! = nil
+
+            if let name: String = yourName {
+                printName(name)
+            } else {
+                print("yourName == nil")
+            }
+
+            // name 상수는 if-let 구문 내에서만 사용가능합니다
+            // 상수 사용범위를 벗어났기 때문에 컴파일 오류 발생
+            //printName(name)
+
+
+            // ,를 사용해 한 번에 여러 옵셔널을 바인딩 할 수 있습니다
+            // 모든 옵셔널에 값이 있을 때만 동작합니다
+            myName = "yongin"
+            yourName = nil
+
+            if let name = myName, let friend = yourName {
+                print("\(name) and \(friend)")
+            }
+            // yourName이 nil이기 때문에 실행되지 않습니다
+            yourName = "hana"
+
+            if let name = myName, let friend = yourName {
+                print("\(name) and \(friend)")
+            }
+            // yongin and hana
+            ```
+    2. 강제 추출
+        - 옵셔널에 값이 들어있는지 아닌지 확인하지 않고 강제로 값을 꺼내는 방식. 만약 값이 없을 경우(nil) 런타임 에러가 발생하기 때문에, 추천되지 않는 방식이다.
+
+            ```swift
+            var myName: String? = yagom
+            var youName: String! = nil
+
+
+            printName(myName!) // yongin
+            myName = nil
+
+            //print(myName!)
+            // 강제추출시 값이 없으므로 런타임 오류 발생
+            yourName = nil
+
+            //printName(yourName)
+            // nil 값이 전달되기 때문에 런타임 오류발생
+            ````
+---
