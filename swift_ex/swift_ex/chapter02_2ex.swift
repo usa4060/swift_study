@@ -22,11 +22,13 @@ Student.selfIntroduce() // 학생타입입니다
 
 // 인스턴스 생성
 var yagom: Student = Student()
-yagom.name = "yagom"
-yagom.class = "스위프트"
-yagom.selfIntroduce()   // 저는 스위프트반 yagom입니다
+yongin.name = "yongin"
+yongin.class = "스위프트"
+yongin.selfIntroduce()   // 저는 스위프트반 yongin입니다
 
 // 인스턴스 생성
 let jina: Student = Student()
 jina.name = "jina"
 jina.selfIntroduce() // 저는 Swift반 jina입니다
+
+// 구조체와는 다르게, class는 static 으로 객체를 생성해도 내부 프로퍼티를 변경할 수 있다.
