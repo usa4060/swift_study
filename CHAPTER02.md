@@ -1198,3 +1198,86 @@
     doSomething(someone: jenny) // 등교를 합니다
     doSomething(someone: yagom) // 숨을 쉽니다
     ````
+---
+ assert & guard
+ -
+ * Assertion
+    - **assert(_ : _ : file : file)** 함수를 사용한다
+    - assert함수는 디버깅 모드에서만 동작한다.
+    - 배포하는 어플리케이션 에서는 제외된다.
+    - 예상했던 조건의 검증을 위해서 사용된다.
+
+        ```swift
+        var someInt: Int = 0
+
+        // 검증 조건과 실패시 나타날 문구를 작성해 줍니다
+        // 검증 조건에 부합하므로 지나갑니다
+        assert(someInt == 0, "someInt != 0")
+
+        someInt = 1
+        //assert(someInt == 0) // 동작 중지, 검증 실패
+        //assert(someInt == 0, "someInt != 0") // 동작 중지, 검증 실패
+        // assertion failed: someInt != 0: file guard_assert.swift, line 26
+
+
+        func functionWithAssert(age: Int?) {
+    
+            assert(age != nil, "age == nil")
+    
+            assert((age! >= 0) && (age! <= 130), "나이값 입력이 잘못되었습니다")
+            print("당신의 나이는 \(age!)세입니다")
+        }
+
+        functionWithAssert(age: 50)
+        //functionWithAssert(age: -1) // 동작 중지, 검증 실패
+        //functionWithAssert(age: nil) // 동작 중지, 검증 실패
+        ````
+ * guard (빠른 종료 - Early Exit)
+    - **guard**를 사용하여 잘못된 값 전달 시 특정 실행구문을 빠르게 종료한다.
+    - 디버깅 모드 뿐 아니라, 모든 조건에서 실행된다.
+    - **guard**의 **else**블럭 내부에는 특정**코드블럭을 종료하는 지시어 (return, break등)**가 꼭 있어야 한다.
+    - 타입캐스팅, 옵셔널 등과 자주 사용된다.
+    - 그 외에도 단순 조건 판단 후 빠르게 종료할 때에도 사용
+
+        ```swift
+        func functionWithGuard(age: Int?) {
+    
+            guard let unwrappedAge = age,
+                unwrappedAge < 130,
+                unwrappedAge >= 0 else {
+                print("나이값 입력이 잘못되었습니다")
+                return
+            }
+    
+            print("당신의 나이는 \(unwrappedAge)세입니다")
+        }
+
+        var count = 1
+
+        while true {
+            guard count < 3 else {
+                break
+            }
+            print(count)
+            count += 1
+        }
+        // 1
+        // 2
+
+        func someFunction(info: [String: Any]) {
+            guard let name = info["name"] as? String else {
+                return
+            }
+    
+            guard let age = info["age"] as? Int, age >= 0 else {
+                return
+            }
+    
+            print("\(name): \(age)")
+        }
+
+        someFunction(info: ["name": "jenny", "age": "10"])
+        someFunction(info: ["name": "mike"])
+        someFunction(info: ["name": "yagom", "age": 10]) // yagom: 10
+        ````
+---
