@@ -1,4 +1,4 @@
-IOS프로그래밍을 위한 swift기초 문법 정리
+iOS프로그래밍을 위한 swift기초 문법 정리
 ======================
 
 * API Design Guidlines
